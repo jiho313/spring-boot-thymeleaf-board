@@ -1,0 +1,20 @@
+server:
+  port: 80
+  
+logging:
+  level:
+    root: info
+    
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: hr
+    password: zxcv1234
+  jpa:
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    properties: 
+      hibernate:
+        format_sql: true
+    show-sql: true
