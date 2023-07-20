@@ -15,6 +15,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain config(HttpSecurity http) throws Exception {
 		return http
+//				.csrf().disable() - csrf(사이트간 요청위조) 해킹 공격을 방지하는 기능을 꺼버린다.
 				.formLogin()
 					.loginPage("/login")
 					.usernameParameter("id")
