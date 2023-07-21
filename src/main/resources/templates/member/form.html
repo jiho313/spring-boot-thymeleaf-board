@@ -27,19 +27,19 @@
 				<div class="form-group mb-3">
 					<label>이름</label>
 					<input type="text" class="form-control" th:field="*{name}"
-						   th:classappend="${#fields.hasErrors('id') ? 'is-invalid' : ''}"/>
+						   th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"/>
 					<div th:errors="*{name}" class="invalid-feedback"></div>
 				</div>				
 				<div class="form-group mb-3">
 					<label>이메일</label>
 					<input type="text" class="form-control" th:field="*{email}"
-						   th:classappend="${#fields.hasErrors('id') ? 'is-invalid' : ''}"/>
+						   th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"/>
 					<div th:errors="*{email}" class="invalid-feedback"></div>
 				</div>				
 				<div class="form-group mb-3">
 					<label>전화번호</label>
 					<input type="text" class="form-control" th:field="*{tel}"
-						   th:classappend="${#fields.hasErrors('id') ? 'is-invalid' : ''}"/>
+						   th:classappend="${#fields.hasErrors('tel') ? 'is-invalid' : ''}"/>
 					<div th:errors="*{tel}" class="invalid-feedback"></div>
 				</div>
 				<div class="text-end">

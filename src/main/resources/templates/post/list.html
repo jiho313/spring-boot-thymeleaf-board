@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layout/base}">
+   <div layout:fragment="content" class="container my-3">
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<h1>게시글 목록 <a th:href="@{/post/add}" class="btn btn-primary btn-sm small">새 글쓰기</a></h1>
+      	</div>
+      </div>
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<table class="table">
+      			<thead>
+      				<tr>
+      					<th>번호</th>
+      					<th>제목</th>
+      					<th>작성자</th>
+      					<th>조회수/댓글수</th>
+      					<th>등록일</th>
+      				</tr>
+      			</thead>
+      			<tbody>
+      				<tr th:if="${#lists.isEmpty(posts)}">
+      					<td colspan="5" class="text-center">게시글이 존재하지 않습니다.</td>
+      				</tr>
+      				<tr th:if="${not #lists.isEmpty(posts)}"
+      					th:each="post : ${posts}">
+      					<td th:text="${post.no}"></td>
+      					<td th:text="${post.title}">글쓰기 연습</td>
+      					<td th:text="${post.member.name}">홍길동</td>
+      					<td th:text="|${#numbers.formatInteger(post.readCount, 1, 'COMMA')} / ${#numbers.formatInteger(post.commentCount, 1, 'COMMA')}|">10/2</td>
+      					<td th:text="${#temporals.format(post.createdDate, 'yyyy년 M월 dd일')}">2023년 7월 21일</td>
+      				</tr>
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+   </div>
+</html>

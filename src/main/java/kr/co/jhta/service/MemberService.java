@@ -3,6 +3,10 @@ package kr.co.jhta.service;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.entity.Member;
@@ -14,9 +18,18 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
 	private final MemberRepository memberRepository;
+	private final PasswordEncoder passwordEncoder;
+	
+	@Override
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		Optional<Member> optional = memberRepository.findById(id);
+		// optional안에 멤버 객체가 들어있으면 멤버 반환 없으면 예외 발생
+		Member member = optional.orElseThrow(() -> new UsernameNotFoundException(id));
+		return member;
+	}
 	
 	public void registerUser(RegisterMemberForm registerMemberForm) {
 		Optional<Member>optionalMember  = memberRepository.findById(registerMemberForm.getId());
@@ -34,6 +47,7 @@ public class MemberService {
 		
 		Member member = new Member();
 		BeanUtils.copyProperties(registerMemberForm, member);
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		
 		memberRepository.save(member);
 	}

@@ -1,13 +1,17 @@
 package kr.co.jhta.entity;
 
-import java.util.Date;
+import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +21,11 @@ import lombok.Setter;
 @Table(name = "sample_board_members")
 @Getter
 @Setter
+@DynamicInsert
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseDateTimeEntity implements UserDetails {
+
+	private static final long serialVersionUID = 2599332695123557866L;
 
 	@Id
 	@Column(name = "member_id", updatable = false)
@@ -39,11 +46,45 @@ public class Member {
 	@Column(name = "member_deleted")
 	private String deleted;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "member_updated_date")
-	private Date updateDate;
+//	@Temporal(TemporalType.DATE)
+//	@Column(name = "member_updated_date")
+//	private Date updateDate;
+//	
+//	@Temporal(TemporalType.DATE)
+//	@Column(name = "member_created_date")
+//	private Date createDate;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "member_created_date")
-	private Date createDate;
+	@Override
+	public String getUsername() {
+		
+		return id;
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	
 }

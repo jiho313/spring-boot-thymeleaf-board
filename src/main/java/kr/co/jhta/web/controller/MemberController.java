@@ -24,6 +24,11 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	
+	@GetMapping("/login")
+	public String loginform() {
+		return "member/loginform";
+	}
+	
 	@GetMapping("/register")
 	public String form(Model model) {
 		// 회원가입 폼 화면으로 이동하기 전에 RegisterMemberForm객체를 생성해서 Model객체에 저장한다.
