@@ -1,10 +1,11 @@
 package kr.co.jhta.service;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import kr.co.jhta.entity.Member;
@@ -28,8 +29,8 @@ public class PostService {
 		postRepository.save(post);
 	}
 	
-	public List<Post> getPosts() {
-		return postRepository.findAll();
+	public Page<Post> getPosts(Pageable pageable) {
+		return postRepository.findAll(pageable);
 	}
 	
 }

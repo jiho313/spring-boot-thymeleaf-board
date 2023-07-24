@@ -22,7 +22,7 @@ public class SecurityConfig {
 					.passwordParameter("password")
 					.loginProcessingUrl("/member/login")
 					.defaultSuccessUrl("/")
-					.failureUrl("/login?error=fail")
+					.failureUrl("/member/login?error=fail")
 			.and()
 				.logout()
 					.logoutUrl("/member/logout")

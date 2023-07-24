@@ -35,5 +35,28 @@
       		</table>
       	</div>
       </div>
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<nav>
+      			<ul class="pagination justify-content-center">
+      				<li class="page-item">
+      					<a th:href="@{/post/list(page=${pagination.prev})}"
+      						class="page-link"
+      						th:classappend="${pagination.first ? 'disabled' : ''}">이전</a>
+      				</li>
+      				<li th:each="num : ${pagination.pageNumbers}" class="page-item">
+      					<a th:href="@{/post/list(page=${num - 1})}" 
+      					   class="page-link" th:text="${num}"
+      					   th:classappend="${pagination.page == (num-1) ? 'active' : ''}"></a>
+      				</li>
+      				<li class="page-item">
+      					<a th:href="@{/post/list(page=${pagination.next})}"
+      					 	class="page-link"
+      					 	th:classappend="${pagination.last ? 'disabled' : ''}">다음</a>
+      				</li>
+      			</ul>
+      		</nav>
+      	</div>
+      </div>
    </div>
 </html>
