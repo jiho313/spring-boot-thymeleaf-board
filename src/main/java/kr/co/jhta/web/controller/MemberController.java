@@ -2,12 +2,14 @@ package kr.co.jhta.web.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.jhta.exception.DuplicatedEmailException;
 import kr.co.jhta.exception.DuplicatedMemberIdException;
@@ -46,7 +48,8 @@ public class MemberController {
 	 * 		- 검사한 객체 바로 뒤에 적는다.
 	 * 		- 유효성 체크를 통과하지 못했을 경우 출력되는 에러가 들어있다.
 	 */
-	public String register(@Valid RegisterMemberForm registerMemberForm, BindingResult errors) {
+	public String register(@Valid RegisterMemberForm registerMemberForm, BindingResult errors,
+							RedirectAttributes redirectAttributes) {
 		log.info("errors -> {}", errors);
 		if(errors.hasErrors()) {
 //			폼 안에 든 정보들이 그대로 다시 전달되어야 하기 때문에 리다이렉트가 아닌
@@ -62,6 +65,10 @@ public class MemberController {
 			errors.rejectValue("email", null, "이미 사용중인 이메일입니다.");
 			return "member/form";
 		}
+		
+		UserDetails userDetails = memberService.loadUserByUsername(registerMemberForm.getId());
+//		리다이렉트 된 다음 페이지에서만 사용하고 다음 응답시 사라지는 RedirectAttributes 객체에 저장
+		redirectAttributes.addFlashAttribute("user", userDetails);
 		
 		return "redirect:registered";
 	}

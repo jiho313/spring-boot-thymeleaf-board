@@ -26,10 +26,10 @@
       				<tr th:if="${not #lists.isEmpty(posts)}"
       					th:each="post : ${posts}">
       					<td th:text="${post.no}"></td>
-      					<td th:text="${post.title}">글쓰기 연습</td>
-      					<td th:text="${post.member.name}">홍길동</td>
-      					<td th:text="|${#numbers.formatInteger(post.readCount, 1, 'COMMA')} / ${#numbers.formatInteger(post.commentCount, 1, 'COMMA')}|">10/2</td>
-      					<td th:text="${#temporals.format(post.createdDate, 'yyyy년 M월 dd일')}">2023년 7월 21일</td>
+      					<td><a th:text="${post.title}" th:href="@{/post/read(no=${post.no},page=${pagination.page})}"></a></td>
+      					<td th:text="${post.member.name}"></td>
+      					<td th:text="|${#numbers.formatInteger(post.readCount, 1, 'COMMA')} / ${#numbers.formatInteger(post.commentCount, 1, 'COMMA')}|"></td>
+      					<td th:text="${#temporals.format(post.createdDate, 'yyyy년 M월 dd일')}"></td>
       				</tr>
       			</tbody>
       		</table>

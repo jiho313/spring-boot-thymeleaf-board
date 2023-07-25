@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layout/base}">
+   <div layout:fragment="content" class="container my-3">
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<h1>게시글 상세정보</h1>
+      	</div>
+      </div>
+      <div class="row mb-3">
+      	<div class="col-12">
+			<p>게시글 상세정보를 확인하세요</p>      		
+			<table class="table">
+				<tbody>
+					<tr>
+						<th style="width: 15%;">글번호</th>
+						<td style="width: 85%;" th:text="${post.no}"></td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td th:text="${post.title}"></td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td th:text="${post.memberName}"></td>
+					</tr>
+					<tr>
+						<th>조회수</th>
+						<td th:text="${#numbers.formatInteger(post.readCount, 1, 'COMMA')}"></td>
+					</tr>
+					<tr>
+						<th>댓글수</th>
+						<td th:text="${#numbers.formatInteger(post.commentCount, 1, 'COMMA')}"></td>
+					</tr>
+					<tr>
+						<th>작성일</th>
+						<td th:text="${#temporals.format(post.createdDate, 'yyyy년 M월 d일')}"></td>
+					</tr>
+					<tr>
+						<th>최종수정일</th>
+						<td th:text="${#temporals.format(post.updatedDate, 'yyyy년 M월 d일')}"></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td th:text="${post.content}"></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div>
+				<a class="btn btn-warning" 
+					sec:authorize="isAuthenticated()"
+					th:classappend="${#authentication.principal.id == post.memberId ? '' : 'disabled'}">수정</a>
+				<a class="btn btn-danger" 
+					sec:authorize="isAuthenticated()"
+					th:if="${#authentication.principal.id == post.memberId}">삭제</a>
+				<a class="btn btn-primary float-end">목록</a>
+			</div>
+      	</div>
+      </div>
+   </div>
+</html>

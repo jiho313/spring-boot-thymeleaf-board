@@ -56,7 +56,6 @@ public class Member extends BaseDateTimeEntity implements UserDetails {
 	
 	@Override
 	public String getUsername() {
-		
 		return id;
 	}
 	

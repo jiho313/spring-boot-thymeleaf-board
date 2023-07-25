@@ -1,7 +1,45 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="~{layout/base}">
-   <div layout:fragment="content" class="container my-3">
-      <h1>회원가입이 완료되었습니다.</h1>
-   </div>
+	<div layout:fragment="content" class="container my-3">
+		<div class="row mb-3">
+			<div class="col-12">
+				<h1>회원가입 완료</h1>
+			</div>
+		</div>   
+		
+		<div class="row mb-3">
+			<div class="col-12">
+				<p>회원가입 정보를 확인하세요</p>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th style="width: 15%;">아이디</th>
+							<td style="width: 85%;" th:text="${user.id}"></td>
+						</tr>
+						<tr>
+							<th>회원이름</th>
+							<td th:text="${user.name}"></td>
+						</tr>
+					
+						<tr>
+							<th>이메일</th>
+							<td th:text="${user.email}"></td>
+						</tr> 
+					
+						<tr>
+							<th>전화번호</th>
+							<td th:text="${user.tel}"></td>
+						</tr>
+					
+						<tr>
+							<th>가입날짜</th>
+							<td th:text="${#temporals.format(user.createdDate,'yyyy년 M월 d일')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
 </html>
