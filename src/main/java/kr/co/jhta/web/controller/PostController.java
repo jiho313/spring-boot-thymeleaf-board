@@ -51,7 +51,7 @@ public class PostController {
 		
 		postService.increaseReadCount(no);
 		
-		// 재요청 URL의 쿼리스트링을 작성한다.
+		// addAttribute 재요청 URL의 쿼리스트링을 작성한다.
 		redirectAttributes.addAttribute("no", no);
 		redirectAttributes.addAttribute("page", page);
 		

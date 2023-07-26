@@ -12,4 +12,10 @@ public class HomeController {
 		model.addAttribute("msg", "타임리프로 제작한 홈화면입니다.");
 		return "home";
 	}
+	
+	@GetMapping("/test")
+	public String test(Model model) {
+		model.addAttribute("msg", "타임리프로 제작한 홈화면입니다.");
+		return "home2";
+	}
 }
