@@ -18,4 +18,10 @@ public class HomeController {
 		model.addAttribute("msg", "타임리프로 제작한 홈화면입니다.");
 		return "home2";
 	}
+	
+	@GetMapping("/map")
+	public String mapimage(Model model) {
+		model.addAttribute("msg", "타임리프로 제작한 홈화면입니다.");
+		return "map/image";
+	}
 }
