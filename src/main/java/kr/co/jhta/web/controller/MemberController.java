@@ -73,42 +73,42 @@ public class MemberController {
 	 * 			  다음 입력화면으로 이동한다.
 	 */
 	@RequestMapping("/register-next")
-	public String form2(@ModelAttribute("registerMemberForm")RegisterMemberForm form,
+	public String form2(RegisterMemberForm registerMemberForm,
 			BindingResult errors) {
 		
 		// 폼 입력값 유효성 체크하기
-		if (!StringUtils.hasText(form.getId())) {
+		if (!StringUtils.hasText(registerMemberForm.getId())) {
 			errors.rejectValue("id", null, "아이디는 필수 입력값입니다.");
 			return "member/form1";
 		}
 		
-		if (form.getId().length() < 3 || form.getId().length() > 20) {
+		if (registerMemberForm.getId().length() < 3 || registerMemberForm.getId().length() > 20) {
 			errors.rejectValue("id", null, "아이디는 3글자 이상 20글자 이하로 입력하세요.");
 			return "member/form1";
 		}
 
-		log.info("두번째 단계 폼 객체의 해시코드 -> {}",form.hashCode());
-		log.info("두번째 단계 - 폼 객체 -> {}", form);
+		log.info("두번째 단계 폼 객체의 해시코드 -> {}",registerMemberForm.hashCode());
+		log.info("두번째 단계 - 폼 객체 -> {}", registerMemberForm);
 		
 		return "member/form2";
 	}
 	
 	@PostMapping("/register")
-	public String register(@ModelAttribute("registerMemberForm")RegisterMemberForm form,
+	public String register(RegisterMemberForm registerMemberForm,
 			BindingResult errors,
 			SessionStatus sessionStatus,
 			RedirectAttributes redirectAttributes) {
 		
-		log.info("세번째 단계 폼 객체의 해시코드 -> {}",form.hashCode());
-		log.info("세번째 단계 - 폼 객체 -> {}", form);
+		log.info("세번째 단계 폼 객체의 해시코드 -> {}",registerMemberForm.hashCode());
+		log.info("세번째 단계 - 폼 객체 -> {}", registerMemberForm);
 		
-		if(!StringUtils.hasText(form.getPassword())) {
+		if(!StringUtils.hasText(registerMemberForm.getPassword())) {
 			errors.rejectValue("password", null, "비밀번호는 필수 입력값입니다.");
 		}
-		if(!StringUtils.hasText(form.getName())) {
+		if(!StringUtils.hasText(registerMemberForm.getName())) {
 			errors.rejectValue("name", null, "이름은 필수 입력값입니다.");
 		}
-		if(!StringUtils.hasText(form.getEmail())) {
+		if(!StringUtils.hasText(registerMemberForm.getEmail())) {
 			errors.rejectValue("email", null, "이메일은 필수 입력값입니다.");
 		}
 		if (errors.hasErrors()) {
@@ -116,7 +116,7 @@ public class MemberController {
 		}
 		
 		try {
-			memberService.registerUser(form);
+			memberService.registerUser(registerMemberForm);
 		} catch (DuplicatedMemberIdException ex) {
 			errors.rejectValue("id", null, "사용할 수 없는 아이디입니다.");
 			return "member/form1";
@@ -125,7 +125,7 @@ public class MemberController {
 			return "member/form2";
 		}
 		
-		UserDetails userDetails = memberService.loadUserByUsername(form.getId());
+		UserDetails userDetails = memberService.loadUserByUsername(registerMemberForm.getId());
 		
 		// addFlashAttribute 리다이렉트 한 바로 다음 페이지까지 사용하고 사라지는 객체
 		redirectAttributes.addFlashAttribute("user", userDetails);

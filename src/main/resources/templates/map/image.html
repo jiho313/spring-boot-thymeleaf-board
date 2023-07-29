@@ -1,10 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   layout:decorate="~{layout/base2}">
+   layout:decorate="~{layout/base}">
    <div layout:fragment="content" class="container my-3">
 		<!-- 이미지 지도를 표시할 div 입니다 -->
 		<div>
 			<div id="staticMap" style="width:1000x;height:800px;"></div>    
 		</div>
    </div>
+<script layout:fragment="script" th:src="@{/js/image.js}"></script>
 </html>
