@@ -105,6 +105,9 @@ public class MemberController {
 		if(!StringUtils.hasText(registerMemberForm.getPassword())) {
 			errors.rejectValue("password", null, "비밀번호는 필수 입력값입니다.");
 		}
+		if (registerMemberForm.getPassword().length() < 2 || registerMemberForm.getPassword().length() > 4) {
+			errors.rejectValue("password", null, "비밀번호는 2글자 이상 4글자 이하로 입력하세요.");
+		}
 		if(!StringUtils.hasText(registerMemberForm.getName())) {
 			errors.rejectValue("name", null, "이름은 필수 입력값입니다.");
 		}

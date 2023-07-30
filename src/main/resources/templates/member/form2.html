@@ -14,7 +14,7 @@
 				<div class="form-group mb-3">
 					<label>비밀번호</label>
 					<input type="password" class="form-control" th:field="*{password}"
-						   th:classappend="${#fields.hasErrors('*{password}') ? 'is-invalid' : ''}"/>
+						   th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"/>
 					<div th:errors="*{password}" class="invalid-feedback"></div>
 				</div>				
 				<div class="form-group mb-3">
