@@ -8,11 +8,12 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@lombok.ToString
+@ToString
 public class RegisterMemberForm {
 	
 	//@NotBlank(message = "아이디는 필수 입력값입니다.")

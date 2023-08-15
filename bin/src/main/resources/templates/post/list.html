@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layout/base}">
+   <div layout:fragment="content" class="container my-3">
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<h1>게시글 목록 <a th:href="@{/post/add}" class="btn btn-primary btn-sm small">새 글쓰기</a></h1>
+      	</div>
+      </div>
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<table class="table">
+      			<thead>
+      				<tr>
+      					<th>번호</th>
+      					<th>제목</th>
+      					<th>작성자</th>
+      					<th>조회수/댓글수</th>
+      					<th>등록일</th>
+      				</tr>
+      			</thead>
+      			<tbody>
+      				<tr th:if="${#lists.isEmpty(posts)}">
+      					<td colspan="5" class="text-center">게시글이 존재하지 않습니다.</td>
+      				</tr>
+      				<tr th:if="${not #lists.isEmpty(posts)}"
+      					th:each="post : ${posts}">
+      					<td th:text="${post.no}"></td>
+      					<td><a th:text="${post.title}" th:href="@{/post/read(no=${post.no},page=${pagination.page})}"></a></td>
+      					<td th:text="${post.member.name}"></td>
+      					<td th:text="|${#numbers.formatInteger(post.readCount, 1, 'COMMA')} / ${#numbers.formatInteger(post.commentCount, 1, 'COMMA')}|"></td>
+      					<td th:text="${#temporals.format(post.createdDate, 'yyyy년 M월 dd일')}"></td>
+      				</tr>
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+      <div class="row mb-3">
+      	<div class="col-12">
+      		<nav>
+      			<ul class="pagination justify-content-center">
+      				<li class="page-item">
+      					<a th:href="@{/post/list(page=${pagination.prev})}"
+      						class="page-link"
+      						th:classappend="${pagination.first ? 'disabled' : ''}">이전</a>
+      				</li>
+      				<li th:each="num : ${pagination.pageNumbers}" class="page-item">
+      					<a th:href="@{/post/list(page=${num - 1})}" 
+      					   class="page-link" th:text="${num}"
+      					   th:classappend="${pagination.page == (num-1) ? 'active' : ''}"></a>
+      				</li>
+      				<li class="page-item">
+      					<a th:href="@{/post/list(page=${pagination.next})}"
+      					 	class="page-link"
+      					 	th:classappend="${pagination.last ? 'disabled' : ''}">다음</a>
+      				</li>
+      			</ul>
+      		</nav>
+      	</div>
+      </div>
+   </div>
+</html>
